@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PLT_lab1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">    
-    <Grid>        
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.5*"/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
@@ -18,7 +19,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" MinHeight="500">
             <Run Text="f( H,( ) = P" FontSize="24"/>
             <LineBreak/>
             <Run Text="f( P,( ) = SP" FontSize="24"/>
@@ -32,8 +33,8 @@
             <Run Text="f( S,) ) = P" FontSize="24"/>
             <LineBreak/>
         </TextBlock>
-        
-        <Image Grid.Column="0" Grid.Row="2" Grid.RowSpan="2" Name="image">
+
+        <Image Grid.Column="0" Grid.Row="3" Grid.RowSpan="2" Name="image">
             <Image.Source>
                 <BitmapImage UriSource="Resources\Diagram.png"/>
             </Image.Source>
@@ -41,6 +42,9 @@
 
         <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=Word}"/>
         <Button Grid.Column="1" Grid.Row="1" x:Name="runButton" Content="Run" Command="{Binding Path=ButtonCommand}"/>
-        <TextBlock Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Text="{Binding Path=LogText, Mode=OneWay}" />
+        <ScrollViewer Grid.Column="1" Grid.Row="2" Grid.RowSpan="3">
+            <TextBlock  Text="{Binding Path=LogText, Mode=OneWay}"/>
+        </ScrollViewer>
+
     </Grid>
 </Window>
