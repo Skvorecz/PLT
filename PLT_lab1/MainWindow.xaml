@@ -40,7 +40,7 @@
         </Image>
 
         <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=Word}"/>
-        <Button Grid.Column="1" Grid.Row="1" x:Name="runButton" Content="Run"/>
-        <TextBlock Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Text="Log:"/>
+        <Button Grid.Column="1" Grid.Row="1" x:Name="runButton" Content="Run" Command="{Binding Path=ButtonCommand}"/>
+        <TextBlock Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Text="{Binding Path=Log, Mode=OneWay}" />
     </Grid>
 </Window>
