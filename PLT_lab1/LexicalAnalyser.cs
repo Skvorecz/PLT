@@ -12,7 +12,7 @@ namespace PLT_lab1
         private readonly List<Transition> transitions = new List<Transition>
         {
             new Transition(State.H, State.P, '('),
-            new Transition(State.H, State.SP, '('),
+            new Transition(State.P, State.SP, '('),
             new Transition(State.SP, State.SP, '('),
             new Transition(State.SP, State.P, ')'),
             new Transition(State.S, State.S, '('),
@@ -26,22 +26,24 @@ namespace PLT_lab1
 
         public bool AnalyzeWord(string word)
         {
+            log($"Starting analysis for word \"{word}\"");
             State currentState = initialState;
+            log($"Current state is {currentState}");
             foreach (char symbol in word)
             {
-                var transition = transitions.FirstOrDefault((t) => t.FromState == currentState && t.Symbol == symbol);
+                log($"Next symbol is {symbol}");
+                var transition = transitions.FirstOrDefault((t) =>
+                                                            t.FromState == currentState
+                                                            && t.Symbol == symbol);
                 if (transition == null)
                 {
+                    log($"Transition f( {currentState}, {symbol} not found");
                     return false;
                 }
+                log(transition.ToString());
                 currentState = transition.ToState;
             }
             return finalStates.Contains(currentState);
-        }
-
-        private void Log(string text)
-        {
-            log(text);
         }
     }
 }

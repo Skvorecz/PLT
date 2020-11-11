@@ -7,12 +7,11 @@ namespace PLT_lab1
 {
     class ViewModel : INotifyPropertyChanged
     {
+        private readonly ILexicalAnalyser lexicalAnalyser;
         private string logText;
 
         public event PropertyChangedEventHandler PropertyChanged;
-
         public ICommand ButtonCommand { get; }
-
         public string Word { get; set; }
         public string LogText
         {
@@ -34,6 +33,7 @@ namespace PLT_lab1
                     () => { Run(); },
                     () => true
                 );
+            lexicalAnalyser = new LexicalAnalyser( (s) => LogLine(s) );
         }
 
         public void OnPropertyChanged([CallerMemberName]string prop = "")
@@ -43,10 +43,11 @@ namespace PLT_lab1
 
         public void Run()
         {
-
+            var result = lexicalAnalyser.AnalyzeWord(Word);
+            LogLine();
         }
 
-        private void LogLine(string line)
+        private void LogLine(string line = null)
         {
             LogText += line;
             logText += Environment.NewLine;
