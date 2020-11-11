@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
@@ -6,22 +7,22 @@ namespace PLT_lab1
 {
     class ViewModel : INotifyPropertyChanged
     {
-        private string log;
+        private string logText;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ICommand ButtonCommand { get; }
 
         public string Word { get; set; }
-        public string Log 
+        public string LogText
         {
             get
             {
-                return log;
+                return logText;
             }
             set
             {
-                log = value;
+                logText = value;
                 OnPropertyChanged();                
             }
         }
@@ -43,6 +44,12 @@ namespace PLT_lab1
         public void Run()
         {
 
+        }
+
+        private void LogLine(string line)
+        {
+            LogText += line;
+            logText += Environment.NewLine;
         }
     }
 }
