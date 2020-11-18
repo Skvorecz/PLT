@@ -27,11 +27,6 @@
             <Run Text="f( SP,( ) = SP" FontSize="24"/>
             <LineBreak/>
             <Run Text="f( SP,) ) = P" FontSize="24"/>
-            <LineBreak/>
-            <Run Text="f( S,( ) = S" FontSize="24"/>
-            <LineBreak/>
-            <Run Text="f( S,) ) = P" FontSize="24"/>
-            <LineBreak/>
         </TextBlock>
 
         <Image Grid.Column="0" Grid.Row="3" Grid.RowSpan="2" Name="image">
