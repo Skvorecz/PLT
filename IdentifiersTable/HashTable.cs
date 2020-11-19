@@ -13,9 +13,11 @@ namespace IdentifiersTable
             table = new string[size];
         }
 
-        public void Add(string value)
+        public int Add(string value)
         {
-            table[Hash(value)] = value;
+            var index = Hash(value);
+            table[index] = value;
+            return index;
         }
 
         public int Search(string value)

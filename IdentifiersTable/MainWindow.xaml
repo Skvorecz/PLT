@@ -12,13 +12,24 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-        <ListView ItemsSource="{Binding Path=array}">
+        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding Path=AddTextBox}"/>
+        <Button Grid.Row="0" Grid.Column="1" Command="{Binding Path=AddCommand}"/>
+
+        <ListView Grid.Row="0" Grid.Column="2" ItemsSource="{Binding Path=Identifiers}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=GetValue}">Value</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=simpleIndex}">Индекс</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=value}">Идентификатор</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=indexInHashTable}">Индекс в хеш таблице</GridViewColumn>
                 </GridView>
             </ListView.View>
+            
         </ListView>
     </Grid>
 </Window>
