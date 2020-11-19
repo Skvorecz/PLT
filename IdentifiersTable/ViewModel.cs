@@ -12,8 +12,8 @@ namespace IdentifiersTable
     class ViewModel : INotifyPropertyChanged
     {
         private const int size = 100;
-        private HashTable hashTable = new HashTable(size);
-        private List<string> sortedList = new List<string>();
+        private readonly HashTable hashTable = new HashTable(size);
+        private readonly List<string> sortedList = new List<string>();
         private string addTextBox;
         private string searchTextBox;
         private string pathTextBox;
@@ -108,6 +108,12 @@ namespace IdentifiersTable
             {
                 i++;
             }
+
+            if (sortedList[i] == identifier)
+            {
+                return -1;
+            }
+
             sortedList.Insert(i, identifier);
 
             return i;

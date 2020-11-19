@@ -16,8 +16,31 @@ namespace IdentifiersTable
         public int Add(string value)
         {
             var index = Hash(value);
-            table[index] = value;
-            return index;
+            if (table[index] == null)
+            {
+                table[index] = value;
+                return index;
+            }
+
+            if (table[index] == value)
+            {
+                return -1;
+            }
+
+            for (int i = 1; ; i++)
+            {
+                int currentHash = (index + i) % size;
+                if (table[currentHash] == null)
+                {
+                    table[currentHash] = value;
+                    return currentHash;
+                }
+
+                if (table[currentHash] == table[index])
+                {
+                    return -1;
+                }
+            }
         }
 
         public int Search(string value)
