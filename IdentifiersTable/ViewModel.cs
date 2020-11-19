@@ -1,18 +1,20 @@
 ﻿using Common;
-using System.Windows.Input;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace IdentifiersTable
 {
-    class ViewModel
+    class ViewModel : INotifyPropertyChanged
     {
         private const int size = 100;
-        public ObservableCollection<Identifier> Identifiers { get; set; } = new ObservableCollection<Identifier>();
         private HashTable hashTable = new HashTable(size);
+        private string addTextBox;
 
+        public ObservableCollection<Identifier> Identifiers { get; set; } = new ObservableCollection<Identifier>();
+        public event PropertyChangedEventHandler PropertyChanged;
         public ICommand AddCommand { get; set; }
-
-        public string AddTextBox { get; set; }
 
         public ViewModel()
         {
@@ -20,6 +22,19 @@ namespace IdentifiersTable
                                     () => { Add(AddTextBox); },
                                     () => true
                                     );
+        }
+
+        public string AddTextBox
+        {
+            get
+            {
+                return addTextBox;
+            }
+            set
+            {
+                addTextBox = value;
+                OnPropertyChanged();
+            }
         }
 
         private void Add(string identifiers)
@@ -30,6 +45,12 @@ namespace IdentifiersTable
                 var hashTableIndex = hashTable.Add(stringId);
                 this.Identifiers.Add(new Identifier(stringId, 0, hashTableIndex));
             }
+            AddTextBox = string.Empty;
+        }
+
+        private void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }

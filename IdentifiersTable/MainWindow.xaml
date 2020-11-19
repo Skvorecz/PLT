@@ -18,18 +18,20 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding Path=AddTextBox}"/>
+        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding Path=AddTextBox, Mode=TwoWay}"/>
         <Button Grid.Row="0" Grid.Column="1" Command="{Binding Path=AddCommand}"/>
 
-        <ListView Grid.Row="0" Grid.Column="2" ItemsSource="{Binding Path=Identifiers}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=simpleIndex}">Индекс</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=value}">Идентификатор</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=indexInHashTable}">Индекс в хеш таблице</GridViewColumn>
-                </GridView>
-            </ListView.View>
-            
-        </ListView>
+        <DataGrid Grid.Row="0"
+                  Grid.Column="2"
+                  ItemsSource="{Binding Path=Identifiers}"
+                  CanUserDeleteRows="False"
+                  AutoGenerateColumns="False"
+                  ColumnWidth="*">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Index" Binding="{Binding Path=SimpleIndex}"/>
+                <DataGridTextColumn Header="Identifier" Binding="{Binding Path=Value}"/>
+                <DataGridTextColumn Header="Index in hash table" Binding="{Binding Path=IndexInHashTable}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

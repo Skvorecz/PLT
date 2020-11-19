@@ -2,15 +2,15 @@
 {
     class Identifier
     {
-        public string value { get; }
-        public int simpleIndex { get; }
-        public int indexInHashTable { get; }
+        public string Value { get; }
+        public int SimpleIndex { get; }
+        public int IndexInHashTable { get; }
 
         public Identifier(string value, int simpleIndex, int indexInHashTable)
         {
-            this.value = value;
-            this.simpleIndex = simpleIndex;
-            this.indexInHashTable = indexInHashTable;
+            Value = value;
+            SimpleIndex = simpleIndex;
+            IndexInHashTable = indexInHashTable;
         }
     }
 }
