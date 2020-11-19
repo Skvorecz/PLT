@@ -16,6 +16,7 @@ namespace IdentifiersTable
         private readonly List<string> sortedList = new List<string>();
         private string addTextBox;
         private string searchTextBox;
+        private string searchResult;
         private string pathTextBox;
 
         public ObservableCollection<Identifier> Identifiers { get; set; } = new ObservableCollection<Identifier>();
@@ -58,6 +59,16 @@ namespace IdentifiersTable
             set
             {
                 searchTextBox = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string SearchResult
+        {
+            get => searchResult;
+            private set
+            {
+                searchResult = value;
                 OnPropertyChanged();
             }
         }
@@ -109,7 +120,7 @@ namespace IdentifiersTable
                 i++;
             }
 
-            if (sortedList[i] == identifier)
+            if (i < sortedList.Count && sortedList[i] == identifier)
             {
                 return -1;
             }
@@ -123,6 +134,10 @@ namespace IdentifiersTable
         {
             var indexInSortedList = BinarySearchInSortedList(identifier);
             var indexInHashTable = hashTable.Search(identifier);
+
+            SearchResult = $"Identifier: {identifier}\n" +
+                $"Index in sorted list: {indexInSortedList}\n" +
+                $"Index in hash table: {indexInHashTable}";
         }
 
         private int BinarySearchInSortedList(string identifier)
