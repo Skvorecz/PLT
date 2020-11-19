@@ -1,4 +1,4 @@
-﻿namespace PLT_lab1
+﻿namespace LexicalAnalyser
 {
     enum State
     {

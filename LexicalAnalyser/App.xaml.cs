@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace PLT_lab1
+namespace LexicalAnalyser
 {
     /// <summary>
     /// Interaction logic for App.xaml

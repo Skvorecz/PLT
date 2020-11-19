@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace PLT_lab1
+namespace Common
 {
-    class Command : ICommand
+    public class Command : ICommand
     {
         private readonly Action execute;
         private readonly Func<bool> canExecute;

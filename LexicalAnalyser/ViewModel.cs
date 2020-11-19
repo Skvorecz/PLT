@@ -2,12 +2,13 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Common;
 
-namespace PLT_lab1
+namespace LexicalAnalyser
 {
     class ViewModel : INotifyPropertyChanged
     {
-        private readonly ILexicalAnalyser lexicalAnalyser;
+        private readonly IAnalyser analyser;
         private string logText;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -33,7 +34,7 @@ namespace PLT_lab1
                     () => { Run(); },
                     () => true
                 );
-            lexicalAnalyser = new LexicalAnalyser( (s) => LogLine(s) );
+            analyser = new Analyser( (s) => LogLine(s) );
         }
 
         public void OnPropertyChanged([CallerMemberName]string prop = "")
@@ -43,7 +44,7 @@ namespace PLT_lab1
 
         public void Run()
         {
-            var result = lexicalAnalyser.AnalyzeWord(Word);
+            var result = analyser.AnalyzeWord(Word);
             LogLine();
         }
 

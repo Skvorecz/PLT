@@ -1,7 +1,7 @@
-﻿<Application x:Class="PLT_lab1.App"
+﻿<Application x:Class="IdentifiersTable.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:PLT_lab1"
+             xmlns:local="clr-namespace:IdentifiersTable"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

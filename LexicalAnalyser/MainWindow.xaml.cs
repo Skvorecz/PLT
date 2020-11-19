@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace PLT_lab1
+namespace LexicalAnalyser
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

@@ -1,6 +1,6 @@
-﻿namespace PLT_lab1
+﻿namespace LexicalAnalyser
 {
-    interface ILexicalAnalyser
+    interface IAnalyser
     {
         bool AnalyzeWord(string word);
     }

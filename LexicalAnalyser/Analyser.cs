@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PLT_lab1
+namespace LexicalAnalyser
 {
-    class LexicalAnalyser : ILexicalAnalyser
+    class Analyser : IAnalyser
     {
         private readonly Action<string> log;
         private readonly State initialState = State.H;
@@ -19,7 +19,7 @@ namespace PLT_lab1
             new Transition(State.S, State.P, ')')
         };
 
-        public LexicalAnalyser(Action<string> log)
+        public Analyser(Action<string> log)
         {
             this.log = log;
         }
