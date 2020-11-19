@@ -24,7 +24,12 @@ namespace IdentifiersTable
         {
             int hashCode = Hash(value);
 
-            for (int i = 0; ; i++)
+            if (table[hashCode] == value)
+            {
+                return hashCode;
+            }
+
+            for (int i = 1; ; i++)
             {
                 int currentHash = (hashCode + i) % size;
                 if (table[currentHash] == null

@@ -3,7 +3,7 @@
     class Identifier
     {
         public string Value { get; }
-        public int SimpleIndex { get; }
+        public int SimpleIndex { get; set; }
         public int IndexInHashTable { get; }
 
         public Identifier(string value, int simpleIndex, int indexInHashTable)
