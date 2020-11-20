@@ -107,11 +107,15 @@ namespace IdentifiersTable
             {
                 var hashTableIndex = hashTable.Add(stringId);
                 var sortedListIndex = sortedListWorker.Add(stringId);
-                this.Identifiers
-                    .Where((i) => i.SimpleIndex >= sortedListIndex)
-                    .ToList()
-                    .ForEach((i) => i.SimpleIndex++);
-                this.Identifiers.Add(new Identifier(stringId, sortedListIndex, hashTableIndex));
+
+                if (hashTableIndex >= 0 && sortedListIndex >= 0)
+                {
+                    this.Identifiers
+                        .Where((i) => i.SimpleIndex >= sortedListIndex)
+                        .ToList()
+                        .ForEach((i) => i.SimpleIndex++);
+                    this.Identifiers.Add(new Identifier(stringId, sortedListIndex, hashTableIndex));
+                }
             }
 
             AddText = string.Empty;
@@ -123,9 +127,15 @@ namespace IdentifiersTable
             var indexInSortedList = sortedListWorker.BinarySearch(identifier);
             var indexInHashTable = hashTable.Search(identifier);
 
-            SearchResult = $"Identifier: {identifier}\n" +
-                $"Index in sorted list: {indexInSortedList}\n" +
-                $"Index in hash table: {indexInHashTable}";
+            if (indexInSortedList >= 0 && indexInHashTable >= 0)
+            {
+                SearchResult = $"Identifier: {identifier}\n" +
+                    $"Index in sorted list: {indexInSortedList}\n" +
+                    $"Index in hash table: {indexInHashTable}";
+                return;
+            }
+
+            SearchResult = "Search failed";            
         }
 
         private void LoadFromFile(string path)
