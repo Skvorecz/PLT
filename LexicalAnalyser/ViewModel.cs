@@ -31,8 +31,7 @@ namespace LexicalAnalyser
         {
             ButtonCommand = new Command
                 (
-                    () => { Run(); },
-                    () => true
+                    () => { Run(); }
                 );
             analyser = new Analyser( (s) => LogLine(s) );
         }

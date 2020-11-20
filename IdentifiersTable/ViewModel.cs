@@ -27,21 +27,8 @@ namespace IdentifiersTable
 
         public ViewModel()
         {
-            AddCommand = new Command(
-                                    () => { AddIdentifiers(AddTextBox); },
-                                    () => true
-                                    );
-
-            SearchCommand = new Command(
-                                        () => { SearchIdentifier(SearchTextBox); },
-                                        () => true
-                                        );
-
-            LoadCommand = new Command(
-                                        () => { LoadFromFile(PathTextBox); },
-                                        () => true
-                                        );
-         }
+            InitializeCommands();
+        }        
 
         public string AddTextBox
         {
@@ -81,6 +68,21 @@ namespace IdentifiersTable
                 pathTextBox = value;
                 OnPropertyChanged();
             }
+        }
+
+        private void InitializeCommands()
+        {
+            AddCommand = new Command(
+                                        () => { AddIdentifiers(AddTextBox); }
+                                        );
+
+            SearchCommand = new Command(
+                                        () => { SearchIdentifier(SearchTextBox); }
+                                        );
+
+            LoadCommand = new Command(
+                                        () => { LoadFromFile(PathTextBox); }
+                                        );
         }
 
         private void AddIdentifiers(string identifiers)

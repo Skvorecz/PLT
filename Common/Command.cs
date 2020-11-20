@@ -18,7 +18,9 @@ namespace Common
 
         public bool CanExecute(object parameter)
         {
-            return canExecute();
+            return canExecute == null 
+                ? true
+                : canExecute();
         }
 
         public void Execute(object parameter)
