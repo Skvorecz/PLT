@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 
@@ -14,7 +13,7 @@ namespace IdentifiersTable
     {
         private const int size = 100;
         private readonly HashTable hashTable;
-        private readonly List<string> sortedList = new List<string>();
+        private readonly SortedListWorker sortedListWorker;
         private Action<string> LogLine;
         private string addText;
         private string searchText;
@@ -33,6 +32,7 @@ namespace IdentifiersTable
             InitializeCommands();
             LogLine = (string s) => Log += (s + Environment.NewLine);
             hashTable = new HashTable(size, LogLine);
+            sortedListWorker = new SortedListWorker(size, LogLine);
         }
 
         public string AddText
@@ -106,7 +106,7 @@ namespace IdentifiersTable
             foreach (string stringId in splitedIdentifiers)
             {
                 var hashTableIndex = hashTable.Add(stringId);
-                var sortedListIndex = AddToList(stringId);
+                var sortedListIndex = sortedListWorker.Add(stringId);
                 this.Identifiers
                     .Where((i) => i.SimpleIndex >= sortedListIndex)
                     .ToList()
@@ -118,69 +118,14 @@ namespace IdentifiersTable
             OnPropertyChanged(nameof(Identifiers));
         }
 
-        private int AddToList(string identifier)
-        {
-            if (sortedList.Count == size)
-            {
-                LogLine("Sorted list is overflowded");
-                return -1;
-            }
-
-            if (sortedList.Count == 0)
-            {
-                sortedList.Add(identifier);
-                return 0;
-            }
-
-            int i = 0;
-            while (i < sortedList.Count && sortedList[i].CompareTo(identifier) < 0)
-            {
-                i++;
-            }
-
-            if (i < sortedList.Count && sortedList[i] == identifier)
-            {
-                LogLine("Identifier already exists in sorted list");
-                return -1;
-            }
-
-            sortedList.Insert(i, identifier);
-
-            return i;
-        }
-
         private void SearchIdentifier(string identifier)
         {
-            var indexInSortedList = BinarySearchInSortedList(identifier);
+            var indexInSortedList = sortedListWorker.BinarySearch(identifier);
             var indexInHashTable = hashTable.Search(identifier);
 
             SearchResult = $"Identifier: {identifier}\n" +
                 $"Index in sorted list: {indexInSortedList}\n" +
                 $"Index in hash table: {indexInHashTable}";
-        }
-
-        private int BinarySearchInSortedList(string identifier)
-        {
-            var left = 0;
-            var right = sortedList.Count - 1;
-            while (left <= right)
-            {
-                var middle = (left + right) / 2;
-                if (sortedList[middle].CompareTo(identifier) < 0)
-                {
-                    left = middle + 1;
-                }
-                else if (sortedList[middle].CompareTo(identifier) > 0)
-                {
-                    right = middle - 1;
-                }
-                else
-                {
-                    return middle;
-                }
-            }
-            LogLine($"Identifier {identifier} is not found in sorted list");
-            return -1;
         }
 
         private void LoadFromFile(string path)
