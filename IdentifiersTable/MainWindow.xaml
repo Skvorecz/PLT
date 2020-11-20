@@ -28,6 +28,10 @@
         <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding Path=PathText}" HorizontalScrollBarVisibility="Auto"/>
         <Button Grid.Row="2" Grid.Column="1" Content="Load from file" Command="{Binding Path=LoadCommand}"/>
 
+        <ScrollViewer Grid.Row="2" Grid.Column="2">
+            <TextBlock Text="{Binding Path=Log, Mode=OneWay}"/>
+        </ScrollViewer>
+
         <DataGrid Grid.Row="0"
                   Grid.Column="2"
                   ItemsSource="{Binding Path=Identifiers}"

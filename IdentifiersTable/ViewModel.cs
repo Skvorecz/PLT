@@ -1,4 +1,5 @@
 ﻿using Common;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -12,12 +13,14 @@ namespace IdentifiersTable
     class ViewModel : INotifyPropertyChanged
     {
         private const int size = 100;
-        private readonly HashTable hashTable = new HashTable(size);
+        private readonly HashTable hashTable;
         private readonly List<string> sortedList = new List<string>();
+        private Action<string> LogLine;
         private string addText;
         private string searchText;
         private string searchResult;
         private string pathText;
+        private string log;
 
         public ObservableCollection<Identifier> Identifiers { get; set; } = new ObservableCollection<Identifier>();
         public event PropertyChangedEventHandler PropertyChanged;
@@ -28,7 +31,9 @@ namespace IdentifiersTable
         public ViewModel()
         {
             InitializeCommands();
-        }        
+            LogLine = (string s) => Log += (s + Environment.NewLine);
+            hashTable = new HashTable(size, LogLine);
+        }
 
         public string AddText
         {
@@ -70,6 +75,16 @@ namespace IdentifiersTable
             }
         }
 
+        public string Log
+        {
+            get => log;
+            private set
+            {
+                log = value;
+                OnPropertyChanged();
+            }
+        }
+
         private void InitializeCommands()
         {
             AddCommand = new Command(
@@ -88,7 +103,7 @@ namespace IdentifiersTable
         private void AddIdentifiers(string identifiers)
         {
             var splitedIdentifiers = identifiers.Split(',');
-            foreach(string stringId in splitedIdentifiers)
+            foreach (string stringId in splitedIdentifiers)
             {
                 var hashTableIndex = hashTable.Add(stringId);
                 var sortedListIndex = AddToList(stringId);
@@ -107,6 +122,7 @@ namespace IdentifiersTable
         {
             if (sortedList.Count == size)
             {
+                LogLine("Sorted list is overflowded");
                 return -1;
             }
 
@@ -124,6 +140,7 @@ namespace IdentifiersTable
 
             if (i < sortedList.Count && sortedList[i] == identifier)
             {
+                LogLine("Identifier already exists in sorted list");
                 return -1;
             }
 
@@ -162,15 +179,20 @@ namespace IdentifiersTable
                     return middle;
                 }
             }
+            LogLine($"Identifier {identifier} is not found in sorted list");
             return -1;
         }
 
         private void LoadFromFile(string path)
         {
-            if (File.Exists(path))
+            if (File.Exists(path) && Path.GetExtension(path) == ".txt")
             {
                 var text = File.ReadAllText(path);
                 AddIdentifiers(text);
+            }
+            else
+            {
+                LogLine("Load failed");
             }
         }
 
