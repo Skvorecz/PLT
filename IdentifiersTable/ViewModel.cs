@@ -102,6 +102,10 @@ namespace IdentifiersTable
 
         private void AddIdentifiers(string identifiers)
         {
+            if (String.IsNullOrEmpty(identifiers))
+            {
+                return;
+            }
             var splitedIdentifiers = identifiers.Split(',');
             foreach (string stringId in splitedIdentifiers)
             {
@@ -118,12 +122,16 @@ namespace IdentifiersTable
                 }
             }
 
-            AddText = string.Empty;
+            AddText = String.Empty;
             OnPropertyChanged(nameof(Identifiers));
         }
 
         private void SearchIdentifier(string identifier)
         {
+            if (String.IsNullOrEmpty(identifier))
+            {
+                return;
+            }
             var indexInSortedList = sortedListWorker.BinarySearch(identifier);
             var indexInHashTable = hashTable.Search(identifier);
 
