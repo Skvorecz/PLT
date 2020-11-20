@@ -14,10 +14,10 @@ namespace IdentifiersTable
         private const int size = 100;
         private readonly HashTable hashTable = new HashTable(size);
         private readonly List<string> sortedList = new List<string>();
-        private string addTextBox;
-        private string searchTextBox;
+        private string addText;
+        private string searchText;
         private string searchResult;
-        private string pathTextBox;
+        private string pathText;
 
         public ObservableCollection<Identifier> Identifiers { get; set; } = new ObservableCollection<Identifier>();
         public event PropertyChangedEventHandler PropertyChanged;
@@ -30,22 +30,22 @@ namespace IdentifiersTable
             InitializeCommands();
         }        
 
-        public string AddTextBox
+        public string AddText
         {
-            get => addTextBox;
+            get => addText;
             set
             {
-                addTextBox = value;
+                addText = value;
                 OnPropertyChanged();
             }
         }
 
-        public string SearchTextBox
+        public string SearchText
         {
-            get => searchTextBox;
+            get => searchText;
             set
             {
-                searchTextBox = value;
+                searchText = value;
                 OnPropertyChanged();
             }
         }
@@ -60,12 +60,12 @@ namespace IdentifiersTable
             }
         }
 
-        public string PathTextBox
+        public string PathText
         {
-            get => pathTextBox;
+            get => pathText;
             set
             {
-                pathTextBox = value;
+                pathText = value;
                 OnPropertyChanged();
             }
         }
@@ -73,15 +73,15 @@ namespace IdentifiersTable
         private void InitializeCommands()
         {
             AddCommand = new Command(
-                                        () => { AddIdentifiers(AddTextBox); }
+                                        () => { AddIdentifiers(AddText); }
                                         );
 
             SearchCommand = new Command(
-                                        () => { SearchIdentifier(SearchTextBox); }
+                                        () => { SearchIdentifier(SearchText); }
                                         );
 
             LoadCommand = new Command(
-                                        () => { LoadFromFile(PathTextBox); }
+                                        () => { LoadFromFile(PathText); }
                                         );
         }
 
@@ -99,7 +99,7 @@ namespace IdentifiersTable
                 this.Identifiers.Add(new Identifier(stringId, sortedListIndex, hashTableIndex));
             }
 
-            AddTextBox = string.Empty;
+            AddText = string.Empty;
             OnPropertyChanged(nameof(Identifiers));
         }
 
