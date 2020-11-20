@@ -18,20 +18,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding Path=AddText, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
+        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding Path=AddText, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" TextWrapping="Wrap"/>
         <Button Grid.Row="0" Grid.Column="1" Content="Add identifier" Command="{Binding Path=AddCommand}"/>
-
-        <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding Path=SearchText}"/>
-        <Button Grid.Row="1" Grid.Column="1" Content="Search identifier" Command="{Binding Path=SearchCommand}"/>
-        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Path=SearchResult, Mode=OneWay}" IsReadOnly="True"/>
-
-        <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding Path=PathText}" HorizontalScrollBarVisibility="Auto"/>
-        <Button Grid.Row="2" Grid.Column="1" Content="Load from file" Command="{Binding Path=LoadCommand}"/>
-
-        <ScrollViewer Grid.Row="2" Grid.Column="2">
-            <TextBlock Text="{Binding Path=Log, Mode=OneWay}"/>
-        </ScrollViewer>
-
         <DataGrid Grid.Row="0"
                   Grid.Column="2"
                   ItemsSource="{Binding Path=Identifiers}"
@@ -45,5 +33,15 @@
                 <DataGridTextColumn Header="Index in hash table" Binding="{Binding Path=IndexInHashTable}"/>
             </DataGrid.Columns>
         </DataGrid>
+        
+        <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding Path=SearchText}"/>
+        <Button Grid.Row="1" Grid.Column="1" Content="Search identifier" Command="{Binding Path=SearchCommand}"/>
+        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Path=SearchResult, Mode=OneWay}" IsReadOnly="True"/>
+
+        <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding Path=PathText}" TextWrapping="Wrap"/>
+        <Button Grid.Row="2" Grid.Column="1" Content="Load from file" Command="{Binding Path=LoadCommand}"/>
+        <ScrollViewer Grid.Row="2" Grid.Column="2">
+            <TextBlock Text="{Binding Path=Log, Mode=OneWay}"/>
+        </ScrollViewer>        
     </Grid>
 </Window>
